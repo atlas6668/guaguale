@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<button id="binduser">绑定用户</button>
+	<button id="choujiang">抽奖</button>
+
+	<!-- 延迟加载js，提高页面加载速度 -->
+	<script src="/guaguale/resources/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		function binduser(){
+			// 定义 组装 json 数据 
+		    var json = "{"
+		    	+"'nick':'飘',"
+		    	+"'mobile':'13051401722',"
+		    	+"'akey':'qq'"
+		    	+ "}";
+			$.ajax({
+				type: 'get',
+				url : "http://192.168.1.61:8888/guaguale/user/binduser",
+				data:{
+					// 注意转码
+					userinfo: encodeURI(json),
+				},
+				dataType:'jsonp',
+				jsonp:"callback",
+				success: function (json) {
+					alert("success : "+json);
+					alert("code : "+json.code);
+					alert("msg : "+json.msg);
+				},
+				error:function(e){
+					alert("error : "+e);
+				}
+			});
+		}
+		
+		function choujiang(){
+			// 定义 组装 json 数据 
+		    var json = "{"
+		    	+"'nick':'飘',"
+		    	+"'mobile':'13051401722'," 
+		    	+"'akey':'qq'"
+		    	+ "}";
+			$.ajax({
+				type: 'get',
+				url : "http://192.168.1.61:8888/guaguale/activity/choujiang",
+				data:{
+					// 注意转码
+					userinfo: encodeURI(json),
+				},
+				dataType:'jsonp',
+				jsonp:"callback",
+				success: function (json) {
+					alert("success : "+json);
+					alert("code : "+json.code);
+					alert("msg : "+json.msg);
+					alert("key : "+json.key);
+					alert("prize : "+json.prize);
+					alert("image : "+json.image);
+				},
+				error:function(e){
+					alert("error : "+e);
+				}
+			});
+		}
+		
+		$("#binduser").click(function(e){
+			binduser();
+		});
+		
+		$("#choujiang").click(function(e){
+			choujiang();
+			
+		});
+		
+	</script>
+</body>
+</html>
